@@ -1,0 +1,14 @@
+# Node Modules
+node_modules
+
+# MongoDB Local files
+src/mongo/db
+
+# env
+*.env
+
+#logs
+
+*.logs
+*.log
+
