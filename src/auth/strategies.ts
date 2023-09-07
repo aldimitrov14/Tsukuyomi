@@ -2,12 +2,13 @@ import { UserController } from '../controllers/userController'
 import passport from 'passport'
 import { Strategy as FacebookStrategy } from 'passport-facebook'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
+import 'dotenv/config'
 
 passport.use(
   new FacebookStrategy(
     {
-      clientID: '260458576537526',
-      clientSecret: 'c237bedc7fff51c51e9485e150e73c65',
+      clientID: process.env.FACEBOOK_CLIENT_ID,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
       callbackURL: 'http://localhost:8000/auth/facebook/redirect',
       profileFields: ['id', 'emails', 'name']
     },
@@ -27,8 +28,8 @@ passport.use(
 passport.use(
   new GoogleStrategy(
     {
-      clientID: '758708865419-d84fngqcfne19h83c3obd1mccpak67ec.apps.googleusercontent.com',
-      clientSecret: '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',
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: 'http://localhost:8000/auth/google/redirect',
       scope: ['profile', 'email']
     },
