@@ -11,26 +11,26 @@ export interface IUser {
 
 export type UserModel = Model<IUser, unknown, unknown>
 
-export type UpdateProfilePayload = Required<
+export type CreateUserType = {
+  email: string
+  token: string
+}
+
+export type UpdateProfileType = Required<
   Pick<IUser, 'firstName' | 'lastName'>
 >
 
-export interface SetPasswordPayload {
-    password: string;
+export type SetPasswordType = {
+    password: string
 }
 
-export interface SetToken {
-    typeOfToken: string,
-    token: string,
-}
+export type UpdateEmailType = Pick<IUser, 'email' | 'password'>
 
-export type UpdateEmailPayload = Pick<IUser, 'email' | 'password'>
-
-export interface UpdatePasswordPayload {
+export type UpdatePasswordType = {
   oldPassword: string
   newPassword: string
 }
 
-export interface DeleteProfilePayload {
+export type DeleteProfileType = {
   password: string
 }
