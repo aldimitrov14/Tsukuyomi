@@ -1,7 +1,5 @@
-import { Response } from 'express'
-import { startSession } from 'mongoose'
-import { StatusCodes, ReasonPhrases } from 'http-status-codes'
-import { UserService } from '@/services/user'
+import { UserService } from '../services/user'
+import { CreateUserType } from '../types/user'
 import winston from 'winston'
 
 export class UserController {
@@ -10,22 +8,11 @@ export class UserController {
     this.userService = new UserService()
   }
 
-  async registerUserWithToken(email: string, token: string){
+  async registerUserWithToken(data: CreateUserType){
     try {
-      const session = await startSession()
-      session.startTransaction()
-
       const user = await this.userService.createWithToken(
-        {
-          email,
-          token
-        },
-        session
+        data
       )
-
-      await session.commitTransaction()
-      session.endSession()
-
       return user
     } catch (error){
       winston.error(error)
@@ -34,8 +21,7 @@ export class UserController {
 
   async getByEmail(email: string){
     try {
-      const data = await this.userService.getByEmail(email)
-      return data
+      return await this.userService.getByEmail(email)
     } catch (error){
       winston.error(error)
     }

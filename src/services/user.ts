@@ -1,29 +1,27 @@
-import { ClientSession, ObjectId } from 'mongoose'
+import { ObjectId } from 'mongoose'
+
+import { CreateUserType } from '../types/user'
 
 import { User } from '../models/user'
 
 export class UserService {
-  async createWithToken(
-    {
-      email,
-      token
-    }: {
-      email: string
-      token: string,
-    },
-    session?: ClientSession
-  ){
-    return new User({
-      email,
-      token
-    }).save({ session })
+  async createWithToken({ email, token }: CreateUserType){
+    return new User({ email, token }).save()
   }
 
-  async getById(userID: ObjectId){ return User.findById(userID) }
+  async getById(userID: ObjectId){
+    return User.findById(userID)
+  }
 
-  async getByEmail(email: string){ return User.findOne({ email }) }
+  async getByEmail(email: string){
+    return User.findOne({ email })
+  }
 
-  async isExistByEmail(email: string) { return User.exists({ email }) }
+  async doesExistByEmail(email: string) {
+    return User.exists({ email })
+  }
 
-  async deleteById(userId: ObjectId) { return User.deleteOne({ user: userId }) }
+  async deleteById(userID: ObjectId) {
+    return User.deleteOne({ id: userID })
+  }
 }

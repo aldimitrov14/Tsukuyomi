@@ -1,9 +1,10 @@
 import express from 'express'
-import router from 'routes/auth'
+import authRouter from 'routes/auth'
 import { Mongoose } from 'mongo/mongoService'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import passport from './auth/strategies'
+import locationRouter from './routes/location'
 
 const app = express()
 
@@ -20,7 +21,8 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use('/', router)
+app.use('/', authRouter)
+app.use('/', locationRouter)
 
 const port = 8000
 app.listen(port)

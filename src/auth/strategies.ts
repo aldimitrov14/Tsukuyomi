@@ -18,7 +18,7 @@ passport.use(
       let data = await controller.getByEmail(profile._json.email)
 
       if (data == null){
-        data = await controller.registerUserWithToken(profile._json.email, accessToken)
+        data = await controller.registerUserWithToken({ email: profile._json.email, token: accessToken })
       }
       done(null, data?.toJSON())
     }
@@ -40,7 +40,7 @@ passport.use(
         let data = await controller.getByEmail(profile._json.email)
 
         if (data == null){
-          data = await controller.registerUserWithToken(profile._json.email, accessToken)
+          data = await controller.registerUserWithToken({ email: profile._json.email, token: accessToken })
         }
         done(null, data?.toJSON())
       }
