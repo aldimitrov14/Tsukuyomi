@@ -3,6 +3,7 @@ import passport from 'passport'
 import { Strategy as FacebookStrategy } from 'passport-facebook'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
 import 'dotenv/config'
+import logger from '../infrastructure/logger'
 
 passport.use(
   new FacebookStrategy(
@@ -13,6 +14,9 @@ passport.use(
       profileFields: ['id', 'emails', 'name']
     },
     async (accessToken, refreshToken, profile, done) => {
+
+      logger.info('Authenticating with Facebook:...')
+
       const controller = new UserController()
 
       let data = await controller.getByEmail(profile._json.email)
@@ -34,6 +38,9 @@ passport.use(
       scope: ['profile', 'email']
     },
     async (accessToken, refreshToken, profile, done) => {
+
+      logger.info('Authenticating with Google:...')
+
       const controller = new UserController()
 
       if (profile._json.email != undefined){
@@ -48,12 +55,10 @@ passport.use(
   )
 )
 
-// Serialize user into the sessions
 passport.serializeUser((user, done) => {
   done(null, user)
 })
 
-// Deserialize user from the sessions
 passport.deserializeUser((user, done) => {
   if (user != undefined){
     done(null, user)

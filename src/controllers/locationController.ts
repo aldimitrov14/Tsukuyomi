@@ -1,7 +1,7 @@
 import { LocationService } from '../services/location'
-import winston from 'winston'
 import { CreateLocationType } from '@/types/location'
 import { ObjectId } from 'mongoose'
+import logger from '../infrastructure/logger'
 
 export class LocationController {
   userService: LocationService
@@ -11,21 +11,21 @@ export class LocationController {
 
   async createLocation(data: CreateLocationType){
     try {
-      const user = await this.userService.create(
-        data
-      )
-      return user
+      logger.info(`Location-controller: Create Location with data: ${data}`)
+      const location = await this.userService.create(data)
+      return location
     } catch (error){
-      winston.error(error)
+      logger.error(`Location-controller: error: ${error}`)
     }
   }
 
   async getById(id: ObjectId){
     try {
+      logger.info(`Location-controller: Reading Location with ID: ${id}`)
       const data = await this.userService.getById(id)
       return data?.toJSON()
     } catch (error){
-      winston.error(error)
+      logger.error(`Location-controller: error: ${error}`)
     }
   }
 }
