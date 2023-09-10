@@ -1,28 +1,18 @@
-import express from 'express'
+import { MongoManager } from '@/infrastructure/mongodb-manager'
+import 'dotenv/config'
+import ServerCleanUpManager from 'infrastructure/server-cleanup-manager'
+import ServerManager from 'infrastructure/server-manager'
 import authRouter from 'routes/auth'
-import { Mongoose } from 'mongo/mongoService'
-import session from 'express-session'
-import MongoStore from 'connect-mongo'
-import passport from './auth/strategies'
-import locationRouter from './routes/location'
+import locationRouter from 'routes/location'
+import userRouter from 'routes/user'
 
-const app = express()
+const mongoose = new MongoManager()
 
-new Mongoose().Run()
+mongoose.Run(process.env.MONGODB_URI)
 
-app.use(
-  session({
-    store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017' }),
-    resave: false,
-    saveUninitialized: true,
-    secret: 'test123'
-  })
-)
-app.use(passport.initialize())
-app.use(passport.session())
+const server = new ServerManager().createServer([authRouter, locationRouter, userRouter])
 
-app.use('/', authRouter)
-app.use('/', locationRouter)
+new ServerCleanUpManager().cleanup(server, mongoose)
 
-const port = 8000
-app.listen(port)
+
+
