@@ -12,3 +12,5 @@ src/mongo/db
 *.logs
 *.log
 
+ssl
+

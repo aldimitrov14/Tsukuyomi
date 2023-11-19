@@ -1,5 +1,5 @@
 import { UserService } from '../services/user'
-import { CreateUserType } from '../types/user'
+import { CreateUserCredentialsType, CreateUserType } from '../types/user'
 import logger from '../infrastructure/logger'
 
 export class UserController {
@@ -10,10 +10,18 @@ export class UserController {
 
   async registerUserWithToken(data: CreateUserType){
     try {
-      logger.info(`User-controller: Create Location with data: ${data}`)
-      const user = await this.userService.createWithToken(
-        data
-      )
+      logger.info(`User-controller: Create User with data: ${data}`)
+      const user = await this.userService.createWithToken(data)
+      return user
+    } catch (error){
+      logger.error(`User-controller: error: ${error}`)
+    }
+  }
+
+  async registerUserWithCredentials(data: CreateUserCredentialsType){
+    try {
+      logger.info(`User-controller: Create User with data: ${data}`)
+      const user = await this.userService.createWithCredentials(data)
       return user
     } catch (error){
       logger.error(`User-controller: error: ${error}`)

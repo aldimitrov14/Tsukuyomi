@@ -1,4 +1,4 @@
-import { ObjectId } from 'mongoose'
+import mongoose from 'mongoose'
 
 import { CreateLocationType, UpdateLocationType } from '@/types/location'
 
@@ -25,15 +25,15 @@ export class LocationService {
       })
   }
 
-  async getById(locationID: ObjectId){
+  async getById(locationID: mongoose.Types.ObjectId){
     return Location.findById(locationID)
   }
 
-  async doesExistById(locationID: ObjectId) {
+  async doesExistById(locationID: mongoose.Types.ObjectId) {
     return Location.exists({ locationID })
   }
 
-  async deleteById(locationID: ObjectId) {
+  async deleteById(locationID: mongoose.Types.ObjectId) {
     return Location.deleteOne({ id: locationID })
   }
 }

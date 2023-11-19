@@ -1,6 +1,6 @@
-import { ObjectId } from 'mongoose'
+import mongoose from 'mongoose'
 
-import { CreateUserType } from '../types/user'
+import { CreateUserCredentialsType, CreateUserType } from '../types/user'
 
 import { User } from '../models/user'
 
@@ -9,7 +9,11 @@ export class UserService {
     return new User({ email, token }).save()
   }
 
-  async getById(userID: ObjectId){
+  async createWithCredentials({ email, password }: CreateUserCredentialsType){
+    return new User({ email, password }).save()
+  }
+
+  async getById(userID: mongoose.Types.ObjectId){
     return User.findById(userID)
   }
 
@@ -21,7 +25,7 @@ export class UserService {
     return User.exists({ email })
   }
 
-  async deleteById(userID: ObjectId) {
+  async deleteById(userID: mongoose.Types.ObjectId) {
     return User.deleteOne({ id: userID })
   }
 }
