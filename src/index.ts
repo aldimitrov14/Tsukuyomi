@@ -14,5 +14,3 @@ const server = new ServerManager().createServer([authRouter, locationRouter, use
 
 new ServerCleanUpManager().cleanup(server, mongoose)
 
-
-

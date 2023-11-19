@@ -8,7 +8,7 @@ class ServerCleanUpManager {
     logger.info('App is shutting down...')
   }
 
-  private onShutdown = async (mongoose:MongoManager): Promise<void> => {
+  private onShutdown = async (mongoose: MongoManager): Promise<void> => {
     mongoose.Stop()
   }
 
@@ -17,18 +17,16 @@ class ServerCleanUpManager {
   }
 
   cleanup = (server: Server, mongoose: MongoManager): void => {
-
     const onShutdownWrapper = (signal: string | undefined): Promise<void> => {
-      return this.onShutdown(mongoose);
-    };
+      return this.onShutdown(mongoose)
+    }
 
-    gracefulShutdown(server,{
-        preShutdown: this.preShutdown,
-        onShutdown: onShutdownWrapper,
-        finally: this.postShutdown
-      })
+    gracefulShutdown(server, {
+      preShutdown: this.preShutdown,
+      onShutdown: onShutdownWrapper,
+      finally: this.postShutdown
+    })
   }
 }
-
 
 export default ServerCleanUpManager

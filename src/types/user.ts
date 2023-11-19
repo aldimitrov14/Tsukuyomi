@@ -16,6 +16,11 @@ export type CreateUserType = {
   token: string
 }
 
+export type CreateUserCredentialsType = {
+  email: string
+  password: string
+}
+
 export type UpdateProfileType = Required<
   Pick<IUser, 'firstName' | 'lastName'>
 >
