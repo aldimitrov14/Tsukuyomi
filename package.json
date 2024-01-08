@@ -23,7 +23,7 @@
     "start": "ts-node --files -r tsconfig-paths/register ./src",
     "watch": "ts-node-dev --files --respawn --inspect -r tsconfig-paths/register ./src",
     "build": "tsc && tsc-alias && npm run copy:files",
-    "copy:files": "cp .env ./public/.env && cp -R ./src/templates ./public",
+    "copy:files": "cp .env ./public/.env && cp -R ./src/ ./public",
     "seed": "ts-node --files -r tsconfig-paths/register ./src/seeds",
     "lint": "eslint --debug ./src",
     "lint:write": "eslint --debug ./src --fix",
