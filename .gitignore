@@ -4,6 +4,10 @@ node_modules
 # MongoDB Local files
 src/mongo/db
 
+# MongoDB Config
+
+*.conf
+
 # env
 *.env
 

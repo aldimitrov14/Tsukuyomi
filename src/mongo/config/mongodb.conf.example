@@ -1,0 +1,12 @@
+systemLog:
+  destination: 
+  path: 
+  logAppend: 
+storage:
+  dbPath: 
+net:
+  bindIp: 
+  ipv6: 
+replication:
+   oplogSizeMB: 
+   replSetName: 
